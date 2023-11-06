@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FizzBuzz Checker</title>
+</head>
+<body>
+    <section>
+  <h1>Number 1:FizzBuzz Checker</h1>
+  <p>Enter two strings to check if their combined length is divisible by 3, 5, or both.</p>
+
+  <form id="fizzBuzzForm">
+    <label for="string1">String 1:</label>
+    <input type="text" id="string1" name="string1" required><br>
+
+    <label for="string2">String 2:</label>
+    <input type="text" id="string2" name="string2" required><br>
+
+    <input type="submit" value="Check FizzBuzz">
+  </form>
+
+  <p id="result"></p>
+
+  <script>
+function fizzBuzz(str1, str2) {
+    const combinedLength = str1.length + str2.length;
+
+    if (combinedLength % 3 === 0 && combinedLength % 5 === 0) {
+      return "FizzBuzz";
+    } else if (combinedLength % 3 === 0) {
+      return "Fizz";
+    } else if (combinedLength % 5 === 0) {
+      return "Buzz";
+    }
+
+    return "";
+  }
+
+  const form = document.getElementById('fizzBuzzForm');
+  const resultElement = document.getElementById('result');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const string1 = form.elements.string1.value;
+    const string2 = form.elements.string2.value;
+
+    const result = fizzBuzz(string1, string2);
+
+    resultElement.textContent = "Result: " + result;
+  });
+  </script>
+  </section>
+
+  <div>
+    <h2>Number 2 : Age Calculator</h2>
+    <script>
+        // Prompt the user to enter their year of birth
+const birthYear = prompt("Enter your year of birth:");
+
+// Calculate the user's age
+const currentYear = new Date().getFullYear();
+const age = currentYear - parseInt(birthYear, 10);
+
+// Determine and print the user's category
+if (age < 18) {
+  console.log("You are a minor.");
+} else if (age >= 18 && age <= 36) {
+  console.log("You are a youth.");
+} else {
+  console.log("You are an elder.");
+}
+    </script>
+  </div>
+
+
+  // Here we calculate the sum of two numbers input from the user.
+  <div>
+    <h2>number 3</h2>
+    <form>
+        <label for="numbers">Numbers:</label>
+        <input type="text" id="numbers" placeholder="e.g., 1, 2, 3" required>
+        <br>
+        <label for="target">Target Sum:</label>
+        <input type="number" id="target" required>
+        <br>
+        <input type="button" value="Calculate" onclick="calculateTwoSum()">
+        <p id="result3"></p>
+    </form>
+    
+    
+
+    <script>
+      function calculateTwoSum() {
+            const numbersInput = document.getElementById("numbers").value;
+            const targetInput = parseInt(document.getElementById("target").value);
+            
+            const numbers = numbersInput.split(',').map(num => parseInt(num, 10));
+            const result = twoSum(numbers, targetInput);
+
+            const resultElement = document.getElementById("result3");
+            
+            if (result.length === 0) {
+                resultElement.textContent = "No matching pair found.";
+            } else {
+                resultElement.textContent = `Numbers at indices ${result[0]} and ${result[1]} add up to ${targetInput}.`;
+            }
+        }
+        function twoSum(nums, target) {
+            for (let i = 0; i < nums.length; i++) {
+                for (let j = i + 1; j < nums.length; j++) {
+                    if (nums[i] + nums[j] === target) {
+                        return [i, j];
+                    }
+                }
+            }
+            return [];
+        }
+      
+    </script>
+  </div>
+
+  <div>
+    <h1>Number 4:Find the First Palindrome</h1>
+    <p>Enter a list of words separated by commas, and we'll find the first palindrome in the list!</p>
+    
+    <form>
+        <label for="words">Words:</label>
+        <input type="text" id="words" placeholder="e.g., hello, world, level" required>
+        <br>
+        <input type="button" value="Find Palindrome" onclick="findFirstPalindrome()">
+    </form>
+    <p id="result4"></p>
+    <script>
+        function firstPalindrome(words) {
+            for (let i = 0; i < words.length; i++) {
+                const word = words[i];
+                if (isPalindrome(word)) {
+                    return word;
+                }
+            }
+            return "";
+        }
+
+        function isPalindrome(str) {
+            const cleanStr = str.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+            return cleanStr === cleanStr.split('').reverse().join('');
+        }
+        function findFirstPalindrome() {
+            const wordsInput = document.getElementById("words").value;
+            const wordsArray = wordsInput.split(',').map(word => word.trim());
+            
+            const result4 = firstPalindrome(wordsArray);
+            const resultElement = document.getElementById("result4");
+            
+            if (result4) {
+                resultElement.textContent = `The first palindrome found is: ${result4}`;
+            } else {
+                resultElement.textContent = "No palindromes found in the list.";
+            }
+        }
+
+        </script>
+  </div>
+
+  <div>
+    <h1>Number 5:Categorize Array</h1>
+    <p>Enter a mixed list of numbers and single-character strings, and we'll categorize them into evens, odds, and characters without sorting.</p>
+
+    <form>
+        <label for="inputArray">Enter the array:</label>
+        <input type="text" id="inputArray" placeholder="e.g., 2, 3, 1, A, B, 6, C" required>
+        <br>
+        <input type="button" value="Categorize" onclick="categorizeArray()">
+    </form>
+
+    <p id="result5"></p>
+    <script>
+         function categorizeArray() {
+            const inputArray = document.getElementById("inputArray").value;
+            const mixedArray = inputArray.split(',').map(item => item.trim());
+
+            const categorized = categorizeArrayFunc(mixedArray);
+            const resultElement = document.getElementById("result5");
+
+            resultElement.innerHTML = `
+                <strong>Evens:</strong> [${categorized.evens.join(', ')}]<br>
+                <strong>Odds:</strong> [${categorized.odds.join(', ')}]<br>
+                <strong>Characters:</strong> [${categorized.chars.join(', ')}]
+            `;
+        }
+
+        function categorizeArrayFunc(arr) {
+            const result = {
+                evens: [],
+                odds: [],
+                chars: [],
+            };
+
+            for (let i = 0; i < arr.length; i++) {
+                const item = arr[i];
+
+                if (typeof item === "number" && !isNaN(item)) {
+                    if (item % 2 === 0) {
+                        result.evens.push(item);
+                    } else {
+                        result.odds.push(item);
+                    }
+                } else if (typeof item === "string" && item.length === 1) {
+                    result.chars.push(item);
+                }
+            }
+
+            return result;
+        }
+    </script>
+  </div>
+
+  <section>
+    <div>
+      <h1>Number 6:Digit Sum Calculator</h1>
+  <p>Enter an integer to find a single-digit result</p>
+
+  <form id="digitSumForm">
+    <label for="number">Enter an Integer:</label>
+    <input type="number" id="number" name="number" required><br>
+
+    <input type="submit" value="Calculate Digital Root">
+  </form>
+
+  <p id="result6"></p>
+  <script>
+    function calculateDigitalRoot() {
+      const inputNumber = parseInt(document.getElementById('number').value, 10);
+
+      if (!isNaN(inputNumber)) {
+        let num = inputNumber;
+        while (num >= 10) {
+          num = sumOfDigits(num);
+        }
+        document.getElementById('result6').textContent = "Digital Root: " + num;
+      } else {
+        document.getElementById('result6').textContent = "Please enter a valid integer.";
+      }
+    }
+    function sumOfDigits(num) {
+      let sum = 0;
+      while (num > 0) {
+        sum += num % 10;
+        num = Math.floor(num / 10);
+      }
+      return sum;
+    }
+
+    document.getElementById('digitSumForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      calculateDigitalRoot();
+    });
+  </script>
+    </div>
+
+    <div>
+      
+        <h1>Number 7: Array Duplicates Checker</h1>
+        <p>Enter an array of integers to check if any value appears at least twice.</p>
+      
+        <form id="arrayDuplicatesForm">
+          <label for="inputArray">Enter an Array (Separated by commas):</label>
+          <input type="text" id="inputArray" name="inputArray" required><br>
+          <input type="submit" value="Check for Duplicates">
+        </form>
+      
+        <p id="result7"></p>
+        <script>
+          function hasDuplicates(array) {
+            return (new Set(array)).size !== array.length;
+          }
+      
+          function checkForDuplicates() {
+            const inputArrayStr = document.getElementById('inputArray').value;
+            const inputArray = inputArrayStr.split(',').map(item => parseInt(item.trim(), 10)); // Trim potential spaces
+      
+            if (!inputArray.some(isNaN) && hasDuplicates(inputArray)) {
+              document.getElementById('result7').textContent = "At least one value appears at least twice.";
+            } else {
+              document.getElementById('result7').textContent = "All elements are distinct or the input is not valid.";
+            }
+          }
+      
+          const form7 = document.getElementById('arrayDuplicatesForm');
+          form7.addEventListener('submit', function(event) {
+            event.preventDefault();
+            checkForDuplicates();
+          });
+        </script>
+    </div>
+    
+  </section>
+</body>
+</html>
